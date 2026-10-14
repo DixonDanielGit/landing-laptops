@@ -10,41 +10,60 @@
 
     <!-- Header / Navbar -->
     <header class="navbar">
-        <div class="logo">Tech<span>Nova</span></div>
-        <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#modelos">Modelos</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
+        <a class="logo" href="#inicio">Tech<span>Nova</span></a>
+        <div class="nav-actions">
+            <nav aria-label="Navegación principal">
+                <a href="#inicio">Inicio</a>
+                <a href="#modelos">Modelos</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Activar modo claro" title="Activar modo claro">
+                <span aria-hidden="true">☀</span>
+            </button>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="hero-content">
-            <h1>Potencia sin límites para tu creatividad</h1>
+            <span class="eyebrow">Tecnología que impulsa tus ideas</span>
+            <h1>Potencia sin límites para tu <span>creatividad</span></h1>
             <p>Descubre nuestra nueva generación de laptops diseñadas para desarrolladores, creadores y profesionales exigentes.</p>
-            <button class="btn-primary" onclick="saludar()">Ver Modelos</button>
+            <a class="btn-primary" href="#modelos">Explorar modelos <span aria-hidden="true">→</span></a>
         </div>
     </section>
 
     <!-- Modelos Grid -->
     <section id="modelos" class="models-section">
         <h2>Nuestros Modelos Destacados</h2>
+        <p class="section-intro">Encuentra el equipo perfecto para llevar tus proyectos más lejos.</p>
         <div class="grid-container">
             <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85" alt="Laptop NovaBook Pro abierta sobre un escritorio">
+                    <span class="product-tag">CREATIVIDAD</span>
+                </div>
                 <h3>NovaBook Pro 16</h3>
                 <p>Pantalla OLED 4K, procesador de última generación y 32GB de RAM.</p>
-                <span class="price">$1,299 USD</span>
+                <div class="card-bottom"><span class="price">$1,299 <small>USD</small></span><span class="card-arrow" aria-hidden="true">↗</span></div>
             </div>
             <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=85" alt="Laptop NovaAir ligera y portátil">
+                    <span class="product-tag">LIGEREZA</span>
+                </div>
                 <h3>NovaAir 14</h3>
                 <p>Ultra ligera, batería de larga duración ideal para estudiantes y viajes.</p>
-                <span class="price">$899 USD</span>
+                <div class="card-bottom"><span class="price">$899 <small>USD</small></span><span class="card-arrow" aria-hidden="true">↗</span></div>
             </div>
             <div class="card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=900&q=85" alt="Laptop NovaXtreme Gaming de alto rendimiento">
+                    <span class="product-tag">GAMING</span>
+                </div>
                 <h3>NovaXtreme Gaming</h3>
                 <p>Gráficos dedicados de alto nivel y sistema de enfriamiento avanzado.</p>
-                <span class="price">$1,599 USD</span>
+                <div class="card-bottom"><span class="price">$1,599 <small>USD</small></span><span class="card-arrow" aria-hidden="true">↗</span></div>
             </div>
         </div>
     </section>
@@ -55,9 +74,28 @@
     </footer>
 
     <script>
-        function saludar() {
-            alert('¡Genial! Tu prototipo en Render está funcionando perfectamente con JavaScript interactivo.');
+        const themeToggle = document.querySelector('#theme-toggle');
+        const savedTheme = localStorage.getItem('technova-theme');
+
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            document.body.dataset.theme = savedTheme;
         }
+
+        function updateThemeButton() {
+            const isLight = document.body.dataset.theme === 'light';
+            themeToggle.setAttribute('aria-label', `Activar modo ${isLight ? 'oscuro' : 'claro'}`);
+            themeToggle.title = `Activar modo ${isLight ? 'oscuro' : 'claro'}`;
+            themeToggle.querySelector('span').textContent = isLight ? '☾' : '☀';
+        }
+
+        updateThemeButton();
+
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+            document.body.dataset.theme = nextTheme;
+            localStorage.setItem('technova-theme', nextTheme);
+            updateThemeButton();
+        });
     </script>
 </body>
 </html>
